@@ -16,6 +16,7 @@ Esse aplicativo é produzido em React-Native, uma biblioteca Javascript que dese
 
 ## Requisitos/conhecimentos necessários para programação
 
+<<<<<<< HEAD
 - Instalar [requisitos necessários](https://microsoft.github.io/react-native-windows/) para conseguir programar em React Native.
 - Pesquiser sobre a biblioteca Ant Design que é utilizada no aplicativo.
 - Conhecimento básico sobre as produtos oferecidos pela Google, principalmente o Firebase que é o banco de dados utilizado no app.
@@ -23,4 +24,12 @@ Esse aplicativo é produzido em React-Native, uma biblioteca Javascript que dese
 
 ## Importante!
 
+=======
+- Instalar [requisitos necessários](https://microsoft.github.io/react-native-windows/) para conseguir programar em [React Native](https://reactnative.dev/).
+- Pesquisar sobre a biblioteca [Ant Design](https://ant.design/) que é utilizada no aplicativo.
+- Conhecimento básico sobre as produtos oferecidos pela Google, principalmente o [Firebase](https://firebase.google.com/) que é o banco de dados utilizado no app.
+- Aconselha-se usa a IDE para programação [Visual Studio Code](https://code.visualstudio.com/)
+
+## Importante!
+>>>>>>> 57c201baab62c68ab4827d68648e7f539efc2295
 É de extrema importância que antes de iniciar e começar a desenvolver no código do aplicativo, que se tenha conhecimento e os requisitos acima citados, pois sem eles a produção pode ser prejudicada e até mesmo não compreender como funcionar o app em si.
