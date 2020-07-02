@@ -51,7 +51,7 @@ class DrawerC extends Component {
             type="menu"
             name="menu"
             size="lg"
-            color="#9DDBDA"
+            color="#001d2e"
             onPress={() => this.drawer && this.drawer.openDrawer()}
           />
           <WhiteSpace />

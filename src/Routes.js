@@ -41,8 +41,13 @@ class Routes extends Component {
         </Stack.Navigator> */}
         <Tab.Navigator
           initialRouteName="Home"
-          barStyle={{backgroundColor: '#3BA3D1', elevation: 10}}
-          activeColor="#3e2465"
+          barStyle={{
+            backgroundColor: '#001d2e',
+            borderTopColor: '#f0edf6',
+            borderTopWidth: 0.2,
+            borderTopLeftRadius: 50,
+          }}
+          activeColor="#005b87"
           inactiveColor="#f0edf6">
           <Tab.Screen
             name="settings"
