@@ -4,16 +4,26 @@ import _ from 'lodash';
 import {LineChart, YAxis, Grid, XAxis} from 'react-native-svg-charts';
 
 import {connect} from 'react-redux';
-import {valorLeitura} from './../actions/AppActions';
+import {
+  valorLeitura,
+  change_switch,
+  valor_Switch,
+  valor_Corrente,
+  valor_Potencia,
+} from './../actions/AppActions';
 
 class HomeScreen extends Component {
   UNSAFE_componentWillMount() {
     this.props.valorLeitura();
+    this.props.valor_Switch();
+    this.props.valor_Corrente();
+    this.props.valor_Potencia();
   }
-  state = {switchValue: false};
+
   toggleSwitch = value => {
     //onValueChange of the switch this function will be called
-    this.setState({switchValue: value});
+    this.props.switchValue = value;
+    this.props.change_switch(value);
     //state changes according to switch
     //which will result in re-render the text
   };
@@ -39,7 +49,9 @@ class HomeScreen extends Component {
           <View style={style.top}>
             <View>
               <Text style={style.topText}>Consumo Diario:</Text>
-              <Text style={style.consumo}>R$ 23,75</Text>
+              <Text style={style.consumo}>
+                R$ {this.props.consumoDinheiro.ConsumoReais}
+              </Text>
             </View>
             <View>
               <Text style={style.topText}>Consumo Mensal:</Text>
@@ -100,11 +112,15 @@ class HomeScreen extends Component {
             }}>
             <View>
               <Text style={style.topText}>Corrente elétrica:</Text>
-              <Text style={style.consumo}>5 A</Text>
+              <Text style={style.consumo}>
+                {this.props.corrente.CorrenteAtual}A
+              </Text>
             </View>
             <View>
               <Text style={style.topText}>Potência elétrica:</Text>
-              <Text style={style.consumo}>300 W</Text>
+              <Text style={style.consumo}>
+                {this.props.potencia.PotenciaAtual} W
+              </Text>
             </View>
           </View>
           <View
@@ -116,7 +132,7 @@ class HomeScreen extends Component {
             }}>
             <View>
               <Text style={style.topText}>Consumo Quilowatt-hora mensal:</Text>
-              <Text style={style.consumo}>121 kWh</Text>
+              <Text style={style.consumo}>{this.props.consumoKwh.Consumo}</Text>
             </View>
           </View>
           <View style={style.bottom}>
@@ -127,13 +143,28 @@ class HomeScreen extends Component {
               }}>
               <View>
                 <Text style={style.topText}>Estado do Plug:</Text>
-                <Text style={style.ligado}>Ligado</Text>
+                {() => {
+                  if (this.props.switchValue) {
+                    return (
+                      <Text
+                        style={{
+                          justifyContent: 'center',
+                          fontSize: 23,
+                          fontFamily: 'Quicksand-SemiBold',
+                          color: 'green',
+                        }}>
+                        Desligado
+                      </Text>
+                    );
+                  }
+                }}
               </View>
               <View style={style.container}>
                 <Switch
+                  trackColor={{false: 'red', true: 'green'}}
                   style={{color: 'black', marginTop: 5, marginRight: 10}}
                   onValueChange={this.toggleSwitch}
-                  value={this.state.switchValue}
+                  value={this.props.switchValue}
                 />
               </View>
             </View>
@@ -144,12 +175,16 @@ class HomeScreen extends Component {
   }
 }
 const mapStateToProps = state => ({
-  valor_leitura: state.AppReducer.valor_leitura,
+  consumoKwh: state.AppReducer.consumoKwh,
+  switchValue: state.AppReducer.switchValue,
+  potencia: state.AppReducer.potencia,
+  corrente: state.AppReducer.corrente,
+  consumoDinheiro: state.AppReducer.consumoDinheiro,
 });
 
 export default connect(
   mapStateToProps,
-  {valorLeitura},
+  {valorLeitura, valor_Switch, change_switch, valor_Corrente, valor_Potencia},
 )(HomeScreen);
 
 const style = StyleSheet.create({
@@ -224,10 +259,4 @@ const style = StyleSheet.create({
     color: '#f0edf6',
   },
   container: {},
-  ligado: {
-    justifyContent: 'center',
-    fontSize: 23,
-    fontFamily: 'Quicksand-SemiBold',
-    color: 'green',
-  },
 });
