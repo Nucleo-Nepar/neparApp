@@ -1,0 +1,71 @@
+
+'use strict';
+ 
+const functions = require('firebase-functions');
+const {WebhookClient} = require('dialogflow-fulfillment');
+const {Card, Suggestion} = require('dialogflow-fulfillment');
+//Inicialização do Banco de Dados
+const admin = require('firebase-admin');
+admin.initializeApp({
+  credential: admin.credential.applicationDefault(),
+  //URL Firebase
+  databaseURL:'https://raspberry-firebase-ccc33.firebaseio.com/',
+});
+ 
+process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
+ 
+exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
+  const agent = new WebhookClient({ request, response });
+  console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
+  console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
+  
+  // função que afere a Potência enviada no Banco de Dados 
+ function pot(agent){
+     return admin.database().ref('PotenciaAtual').child('PotenciaAtual').once('value').then(function(data){
+     var pote = data.val();
+        agent.add('O valor da potência é: ' + pote +' Vatts');});
+   }
+
+  // função que afere a Corrente enviada no Banco de Dados 
+  function registro(agent){
+     return admin.database().ref('CorrenteAtual').child('CorrenteAtual').once('value').then(function(snapshot){
+     var valor = snapshot.val();
+        agent.add('O valor da corrente é: ' + valor +' Amperes');});
+   }
+   // função que afere o Consumo em Reais enviada no Banco de Dados 
+   function consumoD(agent){
+     return admin.database().ref('Consumo(Dinheiro)').child('ConsumoReais').once('value').then(function(snapshot){
+     var cons = snapshot.val();
+     
+        agent.add('O valor do consumo é: ' + cons +' reais');});
+   
+  }
+  
+ // função que afere o Consumo enviada no Banco de Dados 
+   function consumo(agent){
+     return admin.database().ref('Consumo(Kwh)').child('Consumo').once('value').then(function(snapshot){
+     var cons = snapshot.val();
+        agent.add('O valor do consumo é: ' + cons +' Kilo-Vatt-hora');});
+   
+  }
+  //função que troca o swich para false no banco de dados (liga o dispositivo)
+  function ligarDispositivo(agent){
+    admin.database().ref('switch').set(false);
+    agent.add('Feito');
+  }
+  //função que troca o swich para true no banco de dados (desliga o dispositivo)
+  function desligarDispositivo(agent){
+    admin.database().ref('switch').set(true);
+    agent.add('Feito');
+  }
+  
+  let intentMap = new Map();
+  
+  intentMap.set('Corrente', registro);
+  intentMap.set('Ligar',ligarDispositivo);
+  intentMap.set('Desligar',desligarDispositivo);
+  intentMap.set('Potencia',pot);
+  intentMap.set('Consumo',consumo);
+  intentMap.set('ConsumoD',consumoD);
+  agent.handleRequest(intentMap);
+});
