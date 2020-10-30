@@ -36,12 +36,6 @@ class HomeScreen extends Component {
 
     return (
       <View style={style.flex}>
-        <View style={style.header}>
-          <Image
-            style={style.tinyLogo}
-            source={require('../assets/imgs/logo1.png')}
-          />
-        </View>
         <View style={style.card}>
           <View style={style.header}>
             <Text style={style.headerText}>Plug 01</Text>
@@ -199,11 +193,6 @@ const style = StyleSheet.create({
     fontSize: 23,
     fontFamily: 'Quicksand-Regular',
     color: '#f0edf6',
-  },
-  tinyLogo: {
-    marginTop: 5,
-    width: 100,
-    height: 50,
   },
   consumo: {
     justifyContent: 'center',
