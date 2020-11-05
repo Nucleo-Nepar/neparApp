@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Switch, Image} from 'react-native';
+import {View, Text, StyleSheet, Switch} from 'react-native';
 import _ from 'lodash';
 import {LineChart, YAxis, Grid, XAxis} from 'react-native-svg-charts';
 
@@ -10,9 +10,9 @@ import {
   valor_Switch,
   valor_Corrente,
   valor_Potencia,
-} from './../actions/AppActions';
+} from '../actions/AppActions';
 
-class HomeScreen extends Component {
+class PlugInteligente extends Component {
   UNSAFE_componentWillMount() {
     this.props.valorLeitura();
     this.props.valor_Switch();
@@ -38,7 +38,7 @@ class HomeScreen extends Component {
       <View style={style.flex}>
         <View style={style.card}>
           <View style={style.header}>
-            <Text style={style.headerText}>Plug 01</Text>
+            <Text style={style.headerText}>Plug Inteligente</Text>
           </View>
           <View style={style.top}>
             <View>
@@ -179,7 +179,7 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {valorLeitura, valor_Switch, change_switch, valor_Corrente, valor_Potencia},
-)(HomeScreen);
+)(PlugInteligente);
 
 const style = StyleSheet.create({
   top: {
@@ -236,7 +236,7 @@ const style = StyleSheet.create({
     flex: 1,
     borderTopColor: '#f0edf6',
     borderTopWidth: 0.2,
-    margin: 10,
+    marginHorizontal: 10,
   },
   text: {
     fontSize: 25,

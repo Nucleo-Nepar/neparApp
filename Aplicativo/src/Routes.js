@@ -2,8 +2,9 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import HomeScreen from './components/Home';
-import SideBar from './components/SideBar';
+import PlugInteligente from './screens/PlugInteligente';
+import ControleLaboratorio from './screens/ControleLaboratorio';
+import SideBar from './screens/SideBar';
 
 const Stack = createStackNavigator();
 
@@ -11,8 +12,15 @@ const getRoutes = () => (
   <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
+        name="Plug Inteligente"
+        component={PlugInteligente}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Laboratório de Intalações"
+        component={ControleLaboratorio}
         options={{
           headerShown: false,
         }}

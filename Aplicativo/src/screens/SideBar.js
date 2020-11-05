@@ -2,8 +2,7 @@ import React, {useRef} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Drawer, Container, Header, Content, Button} from 'native-base';
-
-import HomeScreen from './Home';
+import styled from 'styled-components';
 
 const SideBar = () => {
   return (
@@ -34,31 +33,47 @@ const App = ({navigator, children}) => {
       content={<SideBar navigator={navigator} />}
       onClose={() => closeDrawer()}>
       <Container>
-        <Header
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            backgroundColor: '#001d2e',
-          }}>
-          <Icon
-            onPress={() => openDrawer()}
-            name="bars"
-            size={30}
-            color="#fff"
-          />
-          <View style={{justifyContent: 'center', flexDirection: 'row'}}>
-            <Image
-              style={styles.tinyLogo}
-              source={require('../assets/imgs/logo1.png')}
+        <StyledHeader>
+          <StyledIcon>
+            <Icon
+              onPress={() => openDrawer()}
+              name="bars"
+              size={33}
+              color="#fff"
+              style={{}}
             />
-          </View>
-        </Header>
+          </StyledIcon>
+          <StyledImage>
+            <View>
+              <Image
+                style={styles.tinyLogo}
+                source={require('../assets/imgs/logo1.png')}
+              />
+            </View>
+          </StyledImage>
+        </StyledHeader>
         {children}
       </Container>
     </Drawer>
   );
 };
+
+const StyledHeader = styled.View`
+  background-color: #001d2e;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const StyledIcon = styled.View`
+  position: absolute;
+  margin-left: 15px;
+`;
+
+const StyledImage = styled.View`
+  align-items: center;
+  flex: 1;
+`;
 
 const styles = StyleSheet.create({
   container: {
@@ -80,7 +95,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     width: 100,
     height: 50,
-    alignItems: 'center',
   },
 });
 
