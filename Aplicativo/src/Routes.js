@@ -12,14 +12,14 @@ const getRoutes = () => (
   <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen
-        name="Plug Inteligente"
+        name="Plug"
         component={PlugInteligente}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="Laboratório de Intalações"
+        name="ControleLab"
         component={ControleLaboratorio}
         options={{
           headerShown: false,

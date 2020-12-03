@@ -13,12 +13,12 @@ import {
 } from '../actions/AppActions';
 
 class PlugInteligente extends Component {
-  UNSAFE_componentWillMount() {
-    this.props.valorLeitura();
-    this.props.valor_Switch();
-    this.props.valor_Corrente();
-    this.props.valor_Potencia();
-  }
+  // UNSAFE_componentWillMount() {
+  //   this.props.valorLeitura();
+  //   this.props.valor_Switch();
+  //   this.props.valor_Corrente();
+  //   this.props.valor_Potencia();
+  // }
 
   toggleSwitch = value => {
     //onValueChange of the switch this function will be called

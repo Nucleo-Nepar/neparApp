@@ -1,16 +1,17 @@
 import React, {useRef} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Drawer, Container, Header, Content, Button} from 'native-base';
+import {Drawer, Container} from 'native-base';
 import styled from 'styled-components';
 
 const SideBar = () => {
   return (
-    <View style={[styles.container, {backgroundColor: '#fff'}]}>
-      <Text>
-        <Icon name="rocket" size={30} color="#900" />
-        Conteúdo side bar
-      </Text>
+    <View style={styles.container}>
+      <StyledContainer>
+        <StyledText>
+          NEPAR - Núcleo de Estudos de Automação Residencial
+        </StyledText>
+      </StyledContainer>
     </View>
   );
 };
@@ -65,6 +66,14 @@ const StyledHeader = styled.View`
   align-items: center;
 `;
 
+const StyledButton = styled.View`
+  border-bottom: 1px solid #fff;
+`;
+
+const StyledText = styled.Text`
+  color: #f0edf6;
+`;
+
 const StyledIcon = styled.View`
   position: absolute;
   margin-left: 15px;
@@ -75,11 +84,23 @@ const StyledImage = styled.View`
   flex: 1;
 `;
 
+const StyledContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  height: 150px;
+  border-bottom-color: #f0edf6;
+  border-bottom-width: 0.2px;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #f0edf6;
+  align-items: center;
+  justify-content: center;
+`;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: '#001d2e',
   },
   welcome: {
     fontSize: 20,
