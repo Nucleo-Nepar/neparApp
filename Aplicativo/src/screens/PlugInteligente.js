@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Switch, Button} from 'react-native';
+import {View, Text, StyleSheet, Switch} from 'react-native';
 import {LineChart, YAxis, Grid, XAxis} from 'react-native-svg-charts';
 
 import {connect} from 'react-redux';
@@ -88,7 +88,7 @@ class PlugInteligente extends Component {
               }}
               numberOfTicks={5}
               formatLabel={value => {
-                if (value == 0) {
+                if (value === 0) {
                   return `${dia}/07`;
                 } else if (value < 5) {
                   return `${value + dia}/07`;
@@ -159,10 +159,6 @@ class PlugInteligente extends Component {
                   style={{color: 'black', marginTop: 5, marginRight: 10}}
                   onValueChange={this.toggleSwitch}
                   value={this.props.switchValue}
-                />
-                <Button
-                  title="lab"
-                  onPress={() => this.props.navigation.navigate('controleLab')}
                 />
               </View>
             </View>

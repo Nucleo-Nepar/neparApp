@@ -1,41 +1,51 @@
 import React from 'react';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
 
+import SideBar from './components/SideBar';
 import PlugInteligente from './screens/PlugInteligente';
 import ControleLaboratorio from './screens/ControleLaboratorio';
-import Header from './components/Header';
+import COLORS from './assets/colors';
 
-const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
-const getRoutes = () => {
+const Routes = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="plug">
-        <Stack.Screen
+      <Drawer.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: COLORS.background,
+          },
+          headerTintColor: COLORS.textColor,
+          headerTitleStyle: {
+            color: COLORS.textColor,
+            fontSize: 23,
+            fontFamily: 'Spartan',
+          },
+          headerTitleAlign: 'center',
+        }}
+        initialRouteName="plug"
+        drawerContent={props => <SideBar {...props} />}>
+        <Drawer.Screen
           name="controleLab"
           component={ControleLaboratorio}
           options={{
-            headerShown: false,
+            title: 'Nepar',
+            headerShown: true,
           }}
         />
-        <Stack.Screen
+        <Drawer.Screen
           name="plug"
           component={PlugInteligente}
           options={{
-            headerShown: false,
+            title: 'Nepar',
+            headerShown: true,
           }}
         />
-      </Stack.Navigator>
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 };
 
-const Routes = () => {
-  return (
-    <>
-      <Header>{getRoutes()}</Header>
-    </>
-  );
-};
 export default Routes;
