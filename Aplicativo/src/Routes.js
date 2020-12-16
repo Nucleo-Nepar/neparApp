@@ -1,27 +1,26 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Button} from 'react-native';
 
 import PlugInteligente from './screens/PlugInteligente';
 import ControleLaboratorio from './screens/ControleLaboratorio';
-import SideBar from './components/SideBar';
+import Header from './components/Header';
 
 const Stack = createStackNavigator();
 
 const getRoutes = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Teste">
+      <Stack.Navigator initialRouteName="plug">
         <Stack.Screen
-          name="ControleLab"
+          name="controleLab"
           component={ControleLaboratorio}
           options={{
             headerShown: false,
           }}
         />
         <Stack.Screen
-          name="Plug"
+          name="plug"
           component={PlugInteligente}
           options={{
             headerShown: false,
@@ -31,10 +30,11 @@ const getRoutes = () => {
     </NavigationContainer>
   );
 };
+
 const Routes = () => {
   return (
     <>
-      <SideBar>{getRoutes()}</SideBar>
+      <Header>{getRoutes()}</Header>
     </>
   );
 };

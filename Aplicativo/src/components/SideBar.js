@@ -1,101 +1,28 @@
-import React, {useRef} from 'react';
-import {Image, StyleSheet, View, Button} from 'react-native';
-import {Drawer, Container} from 'native-base';
+import React from 'react';
 import styled from 'styled-components';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-
-import {
-  faBars,
-  faLightbulb,
-  faPlug,
-  faFire,
-} from '@fortawesome/free-solid-svg-icons';
+import {Button} from 'react-native';
+import {connect} from 'react-redux';
+import {faLightbulb, faPlug, faFire} from '@fortawesome/free-solid-svg-icons';
+// import {useNavigation} from '@react-navigation/native';
 
 import StyledButton from './ButtonSideBar';
 
-const SideBar = ({navigator}) => {
+const SideBar = () => {
+  // const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <StyledView>
       <StyledContainer>
         <StyledText>
           NEPAR - Núcleo de Estudos de Automação Residencial
         </StyledText>
       </StyledContainer>
       <StyledButton icon={faLightbulb} text="LIE - Controle" />
-      <StyledButton
-        icon={faPlug}
-        text="Plug Inteligente"
-        onPress={() => navigator.navigate('Plug')}
-      />
+      <StyledButton icon={faPlug} text="Plug Inteligente" onPress={() => {}} />
       <StyledButton icon={faFire} text="Sensor de Gás" />
-      <Button title="tete" onPress={() => navigator.navigate('Plug')} />
-    </View>
+      {/* <Button title="tete" onPress={() => {}} /> */}
+    </StyledView>
   );
 };
-
-const App = ({navigator, children}) => {
-  const drawer = useRef(0);
-
-  const closeDrawer = () => {
-    drawer.current._root.close();
-  };
-  const openDrawer = () => {
-    drawer.current._root.open();
-  };
-
-  return (
-    <Drawer
-      ref={ref => {
-        drawer.current = ref;
-      }}
-      content={<SideBar navigator={navigator} />}
-      onClose={() => closeDrawer()}>
-      <Container>
-        <StyledHeader>
-          <StyledIcon>
-            <FontAwesomeIcon
-              onPress={() => openDrawer()}
-              icon={faBars}
-              size={31}
-              color="#fff"
-            />
-          </StyledIcon>
-          <StyledImage>
-            <View>
-              <Image
-                style={styles.tinyLogo}
-                source={require('../assets/imgs/logo1.png')}
-              />
-            </View>
-          </StyledImage>
-        </StyledHeader>
-        {children}
-      </Container>
-    </Drawer>
-  );
-};
-
-const StyledHeader = styled.View`
-  background-color: #001d2e;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const StyledText = styled.Text`
-  color: #f0edf6;
-  font-family: 'Quicksand-Semibold';
-`;
-
-const StyledIcon = styled.View`
-  position: absolute;
-  padding: 15px;
-`;
-
-const StyledImage = styled.View`
-  align-items: center;
-  flex: 1;
-`;
 
 const StyledContainer = styled.View`
   display: flex;
@@ -110,26 +37,16 @@ const StyledContainer = styled.View`
   justify-content: center;
 `;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#001d2e',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  tinyLogo: {
-    marginTop: 5,
-    width: 100,
-    height: 50,
-  },
-});
+const StyledText = styled.Text`
+  color: #f0edf6;
+  font-family: 'Quicksand-Semibold';
+`;
 
-export default App;
+const StyledView = styled.View`
+  flex: 1;
+  background-color: #001d2e;
+`;
+
+const mapStateToProps = state => ({});
+
+export default connect(mapStateToProps)(SideBar);

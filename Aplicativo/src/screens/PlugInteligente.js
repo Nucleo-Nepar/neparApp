@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Switch} from 'react-native';
-import _ from 'lodash';
+import {View, Text, StyleSheet, Switch, Button} from 'react-native';
 import {LineChart, YAxis, Grid, XAxis} from 'react-native-svg-charts';
 
 import {connect} from 'react-redux';
@@ -27,6 +26,7 @@ class PlugInteligente extends Component {
     //state changes according to switch
     //which will result in re-render the text
   };
+
   render() {
     const data = [0, 10, 40, 25, 17];
     const dataDia = [1, 2, 3, 4, 5, 6];
@@ -159,6 +159,10 @@ class PlugInteligente extends Component {
                   style={{color: 'black', marginTop: 5, marginRight: 10}}
                   onValueChange={this.toggleSwitch}
                   value={this.props.switchValue}
+                />
+                <Button
+                  title="lab"
+                  onPress={() => this.props.navigation.navigate('controleLab')}
                 />
               </View>
             </View>
