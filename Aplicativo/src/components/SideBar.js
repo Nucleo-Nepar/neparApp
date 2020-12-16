@@ -1,14 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Button} from 'react-native';
 import {connect} from 'react-redux';
 import {faLightbulb, faPlug, faFire} from '@fortawesome/free-solid-svg-icons';
-// import {useNavigation} from '@react-navigation/native';
 
 import StyledButton from './ButtonSideBar';
 
-const SideBar = () => {
-  // const navigation = useNavigation();
+const SideBar = ({navigation}) => {
   return (
     <StyledView>
       <StyledContainer>
@@ -16,10 +13,17 @@ const SideBar = () => {
           NEPAR - Núcleo de Estudos de Automação Residencial
         </StyledText>
       </StyledContainer>
-      <StyledButton icon={faLightbulb} text="LIE - Controle" />
-      <StyledButton icon={faPlug} text="Plug Inteligente" onPress={() => {}} />
-      <StyledButton icon={faFire} text="Sensor de Gás" />
-      {/* <Button title="tete" onPress={() => {}} /> */}
+      <StyledButton
+        icon={faLightbulb}
+        text="LIE - Controle"
+        onPress={() => navigation.navigate('controleLab')}
+      />
+      <StyledButton
+        icon={faPlug}
+        text="Plug Inteligente"
+        onPress={() => navigation.navigate('plug')}
+      />
+      <StyledButton icon={faFire} text="Sensor de Gás" onPress={() => {}} />
     </StyledView>
   );
 };

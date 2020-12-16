@@ -4,14 +4,14 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 import COLORS from '../assets/colors';
 
-const Button = ({onPress, text, icon}) => (
+const Button = ({text, icon, onPress}) => (
   <StyledButton onPress={onPress}>
     <FontAwesomeIcon icon={icon} size={25} color={COLORS.textColor} />
     <StyledText>{text}</StyledText>
   </StyledButton>
 );
 
-const StyledButton = styled.View`
+const StyledButton = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -28,7 +28,7 @@ const StyledText = styled.Text`
   margin-left: 15px;
 `;
 
-Button.defaulProps = {
+Button.defaultProps = {
   onPress: () => {},
 };
 
