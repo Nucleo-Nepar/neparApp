@@ -2,9 +2,12 @@ import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
 
+import Login from './screens/Login';
+import Register from './screens/Register';
 import SideBar from './components/SideBar';
 import PlugInteligente from './screens/PlugInteligente';
 import ControleLaboratorio from './screens/ControleLaboratorio';
+
 import COLORS from './assets/colors';
 
 const Drawer = createDrawerNavigator();
@@ -13,6 +16,7 @@ const Routes = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator
+        drawerContent={props => <SideBar {...props} />}
         screenOptions={{
           headerStyle: {
             backgroundColor: COLORS.background,
@@ -25,8 +29,11 @@ const Routes = () => {
           },
           headerTitleAlign: 'center',
         }}
-        initialRouteName="plug"
-        drawerContent={props => <SideBar {...props} />}>
+        initialRouteName="login">
+        <Drawer.Screen name="login" component={Login} />
+
+        <Drawer.Screen name="register" component={Register} />
+
         <Drawer.Screen
           name="controleLab"
           component={ControleLaboratorio}
@@ -35,6 +42,7 @@ const Routes = () => {
             headerShown: true,
           }}
         />
+
         <Drawer.Screen
           name="plug"
           component={PlugInteligente}
