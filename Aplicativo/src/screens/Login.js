@@ -1,7 +1,6 @@
-import React, {Component} from 'react';
-import {View, Text, Button, StyleSheet, ActivityIndicator} from 'react-native';
+import React from 'react';
+import {ActivityIndicator} from 'react-native';
 import styled from 'styled-components';
-
 import {connect} from 'react-redux';
 import {
   modificaEmail,
@@ -12,64 +11,55 @@ import {
 import COLORS from '../assets/colors';
 import logo from '../assets/imgs/logoCescuro.png';
 
-class Login extends Component {
-  _autenticaUsuario() {
-    const {email, senha} = this.props;
-    this.props.autenticarUsuario({email, senha});
-  }
-
-  renderBtnAcessar() {
-    if (this.props.loading_login) {
+const Login = props => {
+  const renderBtnAcessar = () => {
+    if (props.loading_login) {
       return <ActivityIndicator size="large" />;
     }
-    return (
-      <Button
-        title="Acessar"
-        color="#115E54"
-        onPress={() => this._autenticaUsuario()}
-      />
-    );
-  }
+    return <StyledButton title="Acessar" onPress={() => _autenticaUsuario()} />;
+  };
 
-  render() {
-    return (
-      <StyledBackground>
-        <StyledLogoContainer>
-          <StyledImage source={logo} />
-        </StyledLogoContainer>
-        <View style={styles.flex2}>
-          <StyledInput
-            value={this.props.email}
-            placeholder="E-mail"
-            placeholderTextColor={COLORS.textColor}
-            underlineColorAndroid={COLORS.textColor}
-            onChangeText={texto => this.props.modificaEmail(texto)}
-          />
-          <StyledInput
-            secureTextEntry
-            value={this.props.senha}
-            placeholder="Senha"
-            placeholderTextColor={COLORS.textColor}
-            underlineColorAndroid={COLORS.textColor}
-            onChangeText={texto => this.props.modificaSenha(texto)}
-          />
-          <Text style={styles.erro}>{this.props.erroLogin}</Text>
-          <StyledRegister
-            onPress={() => this.props.navigation.navigate('register')}>
-            <StyledText value={this.props.senha} style={styles.cadastrar}>
-              Ainda não tem cadastro? Cadastre-se
-            </StyledText>
-          </StyledRegister>
-        </View>
-        <View style={styles.flex2}>{this.renderBtnAcessar()}</View>
-      </StyledBackground>
-    );
-  }
-}
+  const _autenticaUsuario = () => {
+    const {email, senha} = props;
+    props.autenticarUsuario({email, senha});
+  };
+
+  return (
+    <StyledBackground>
+      <StyledLogoContainer>
+        <StyledImage source={logo} />
+      </StyledLogoContainer>
+      <StyledView>
+        <StyledInput
+          value={props.email}
+          placeholder="E-mail"
+          placeholderTextColor={COLORS.textColor}
+          underlineColorAndroid={COLORS.textColor}
+          onChangeText={texto => props.modificaEmail(texto)}
+        />
+        <StyledInput
+          secureTextEntry
+          value={props.senha}
+          placeholder="Senha"
+          placeholderTextColor={COLORS.textColor}
+          underlineColorAndroid={COLORS.textColor}
+          onChangeText={texto => props.modificaSenha(texto)}
+        />
+        <StyledError>{props.erroLogin}</StyledError>
+        <StyledRegister onPress={() => props.navigation.navigate('register')}>
+          <StyledText value={props.senha}>
+            Ainda não tem cadastro? Cadastre-se
+          </StyledText>
+        </StyledRegister>
+      </StyledView>
+      <StyledView>{renderBtnAcessar()}</StyledView>
+    </StyledBackground>
+  );
+};
 
 const StyledBackground = styled.View`
   flex: 1;
-  padding: 20px;
+  padding: 25px;
   background-color: ${COLORS.background};
   color: ${COLORS.textColor};
 `;
@@ -103,12 +93,19 @@ const StyledText = styled.Text`
   color: ${COLORS.textColor};
   font-family: 'Spartan';
 `;
+const StyledError = styled.Text`
+  color: red;
+  font-size: 15px;
+  text-align: center;
+`;
+const StyledView = styled.View`
+  flex: 2;
+`;
 
-const styles = StyleSheet.create({
-  view: {flex: 1, padding: 10},
-  flex2: {flex: 2, justifyContent: 'center'},
-  erro: {color: 'red', fontSize: 18, textAlign: 'center'},
-});
+const StyledButton = styled.Button`
+  background: ${COLORS.textColor};
+  color: green;
+`;
 
 const mapStatetoProps = state => ({
   email: state.AutenticationReducer.email,
