@@ -1,13 +1,7 @@
-import React, {Component} from 'react';
-import {
-  View,
-  TextInput,
-  Button,
-  StyleSheet,
-  Text,
-  ActivityIndicator,
-} from 'react-native';
+import React from 'react';
+import {ActivityIndicator} from 'react-native';
 import {connect} from 'react-redux';
+import styled from 'styled-components';
 import {
   modificaEmail,
   modificaSenha,
@@ -15,68 +9,118 @@ import {
   cadastraUsuario,
 } from '../actions/AutenticationActions';
 
-class Register extends Component {
-  _cadastraUsuario() {
-    const {nome, email, senha} = this.props;
+import COLORS from '../assets/colors';
 
-    this.props.cadastraUsuario({nome, email, senha});
-  }
+const Register = props => {
+  const _cadastraUsuario = () => {
+    const {nome, email, senha} = props;
 
-  renderBtnCadastro() {
-    if (this.props.loading_cadastro) {
+    props.cadastraUsuario({nome, email, senha});
+  };
+
+  const renderBtnCadastro = () => {
+    if (props.loading_cadastro) {
       return <ActivityIndicator size="large" />;
     }
 
     return (
-      <Button
-        title="Cadastrar"
-        color="#115E54"
-        onPress={() => this._cadastraUsuario()}
-      />
+      <StyledButton onPress={() => _cadastraUsuario()}>
+        <StyledText>Cadastrar</StyledText>
+      </StyledButton>
     );
-  }
+  };
+  return (
+    <StyledContainer>
+      <StyledView>
+        <StyledTextRegister>Cadastrar-se</StyledTextRegister>
+      </StyledView>
+      <StyledViewInput>
+        <StyledInput
+          value={props.nome}
+          placeholder="Nome"
+          placeholderTextColor={COLORS.textColor}
+          underlineColorAndroid={COLORS.textColor}
+          onChangeText={texto => props.modificaNome(texto)}
+        />
+        <StyledInput
+          value={props.email}
+          placeholder="E-mail"
+          placeholderTextColor={COLORS.textColor}
+          underlineColorAndroid={COLORS.textColor}
+          onChangeText={texto => props.modificaEmail(texto)}
+        />
+        <StyledInput
+          value={props.senha}
+          secureTextEntry
+          placeholder="Senha"
+          placeholderTextColor={COLORS.textColor}
+          underlineColorAndroid={COLORS.textColor}
+          onChangeText={texto => props.modificaSenha(texto)}
+        />
+        <StyledError>{props.erroCadastro}</StyledError>
+      </StyledViewInput>
+      <StyledView>{renderBtnCadastro()}</StyledView>
+    </StyledContainer>
+  );
+};
 
-  render() {
-    return (
-      <View>
-        <View style={styles.view1}>
-          <View style={styles.view2}>
-            <TextInput
-              value={this.props.nome}
-              placeholder="Nome"
-              placeholderTextColor="#fff"
-              style={styles.inputs}
-              onChangeText={texto => this.props.modificaNome(texto)}
-            />
-            <TextInput
-              value={this.props.email}
-              placeholder="E-mail"
-              placeholderTextColor="#fff"
-              style={styles.inputs}
-              onChangeText={texto => this.props.modificaEmail(texto)}
-            />
-            <TextInput
-              value={this.props.senha}
-              secureTextEntry
-              placeholder="Senha"
-              placeholderTextColor="#fff"
-              style={styles.inputs}
-              onChangeText={texto => this.props.modificaSenha(texto)}
-            />
-            <Text style={styles.erro}>{this.props.erroCadastro}</Text>
-          </View>
-          <View style={{flex: 1}}>{this.renderBtnCadastro()}</View>
-        </View>
-      </View>
-    );
-  }
-}
-const styles = StyleSheet.create({
-  inputs: {fontSize: 20, height: 45, color: '#fff'},
-  view1: {flex: 1, padding: 10},
-  view2: {flex: 4, justifyContent: 'center'},
-  erro: {color: 'red', fontSize: 18, textAlign: 'center'},
-});
+const StyledContainer = styled.View`
+  flex: 1;
+  padding: 15px;
+  background-color: ${COLORS.background};
+`;
+
+const StyledView = styled.View`
+  display: flex;
+  flex: 2;
+  justify-content: center;
+`;
+
+const StyledInput = styled.TextInput`
+  margin-top: 15px;
+  font-size: 20px;
+  height: 45px;
+  color: ${COLORS.textColor};
+  font-family: 'Spartan';
+`;
+
+const StyledError = styled.Text`
+  color: red;
+  font-size: 15px;
+  text-align: center;
+  margin-bottom: 5px;
+`;
+
+const StyledViewInput = styled.View`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+`;
+
+const StyledButton = styled.TouchableHighlight`
+  display: flex;
+  justify-content: center;
+  background-color: #001d46;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  border-radius: 13px;
+  padding: 0px 25px 0px 25px;
+`;
+
+const StyledText = styled.Text`
+  font-size: 15px;
+  text-align: center;
+  color: ${COLORS.textColor};
+  font-family: 'Spartan';
+`;
+
+const StyledTextRegister = styled.Text`
+  font-size: 25px;
+  text-align: center;
+  color: ${COLORS.textColor};
+  font-family: 'Spartan';
+`;
 
 const mapStateToProps = state => ({
   nome: state.AutenticationReducer.nome,
