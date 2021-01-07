@@ -18,6 +18,10 @@ const INITIAL_STATE = {
   erroLogin: '',
   loading_login: false,
   loading_cadastro: false,
+  loggedIn: false,
+  setLoggedIn: false,
+  userInfo: [],
+  setUserInfo: [],
 };
 
 export default (state = INITIAL_STATE, action) => {

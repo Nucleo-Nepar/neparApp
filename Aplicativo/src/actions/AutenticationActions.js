@@ -1,6 +1,11 @@
 import Firebase from '../Firebase';
 import b64 from 'base-64';
 import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-community/google-signin';
+import {
   MODIFICA_EMAIL,
   MODIFICA_SENHA,
   MODIFICA_NOME,
@@ -31,6 +36,46 @@ export const modificaNome = texto => {
     type: MODIFICA_NOME,
     payload: texto,
   };
+};
+
+// export const signIn = async () => {
+//   try {
+//     await GoogleSignin.hasPlayServices();
+//     console.log('antes');
+//     const {accessToken, idToken} = await GoogleSignin.signIn();
+//     //setloggedIn(true)
+//     const credential = Firebase.auth.GoogleAuthProvider.credential(
+//       idToken,
+//       accessToken,
+//     );
+//     console.log('CREDENTIAL', credential);
+//     await Firebase.auth().signInWithCredential(credential);
+//   } catch (error) {
+//     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+//       // user cancelled the login flow
+//       alert('Cancel');
+//     } else if (error.code === statusCodes.IN_PROGRESS) {
+//       alert('Signin in progress');
+//       // operation (f.e. sign in) is in progress already
+//     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+//       alert('PLAY_SERVICES_NOT_AVAILABLE');
+//       // play services not available or outdated
+//     } else {
+//       // some other error happened
+//       console.log('aqui');
+//     }
+//   }
+// };
+
+export const signOut = async () => {
+  try {
+    await GoogleSignin.revokeAccess();
+    await GoogleSignin.signOut();
+    // setloggedIn(false);
+    // setuserInfo([]);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const cadastraUsuario = ({nome, email, senha}) => {
