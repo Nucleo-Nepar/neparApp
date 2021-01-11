@@ -13,3 +13,7 @@ export const LOGIN_USUARIO_SUCESSO = 'login_usuario_sucesso';
 export const LOGIN_USUARIO_ERRO = 'login_usuario_erro';
 export const LOGIN_EM_ANDAMENTO = 'login_em_andamento';
 export const CADASTRO_EM_ANDAMENTO = 'cadastro_em_andamento';
+export const GET_USER_INFO = 'get_user_info';
+export const IS_LOGGED = 'is_logged';
+export const SIGN_OUT = 'sign_out';
+export const SIGN_IN = 'sign_in';

@@ -1,6 +1,7 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
+import {connect} from 'react-redux';
 
 import Login from './screens/Login';
 import Register from './screens/Register';
@@ -29,7 +30,7 @@ const Routes = () => {
           },
           headerTitleAlign: 'center',
         }}
-        initialRouteName="login">
+        initialRouteName={Login}>
         <Drawer.Screen name="login" component={Login} />
 
         <Drawer.Screen name="register" component={Register} />
@@ -56,4 +57,8 @@ const Routes = () => {
   );
 };
 
-export default Routes;
+const mapStatetoProps = state => ({
+  loggedIn: state.AutenticationReducer.loggedIn,
+});
+
+export default connect(mapStatetoProps)(Routes);

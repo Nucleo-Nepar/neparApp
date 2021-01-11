@@ -1,10 +1,8 @@
 import Firebase from '../Firebase';
 import b64 from 'base-64';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
-} from '@react-native-community/google-signin';
+import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
+import auth from '@react-native-firebase/auth';
+import {useNavigation} from '@react-navigation/native';
 import {
   MODIFICA_EMAIL,
   MODIFICA_SENHA,
@@ -15,6 +13,9 @@ import {
   LOGIN_USUARIO_ERRO,
   LOGIN_EM_ANDAMENTO,
   CADASTRO_EM_ANDAMENTO,
+  GET_USER_INFO,
+  SIGN_OUT,
+  SIGN_IN,
 } from './types';
 
 export const modificaEmail = texto => {
@@ -38,41 +39,59 @@ export const modificaNome = texto => {
   };
 };
 
-// export const signIn = async () => {
-//   try {
-//     await GoogleSignin.hasPlayServices();
-//     console.log('antes');
-//     const {accessToken, idToken} = await GoogleSignin.signIn();
-//     //setloggedIn(true)
-//     const credential = Firebase.auth.GoogleAuthProvider.credential(
-//       idToken,
-//       accessToken,
-//     );
-//     console.log('CREDENTIAL', credential);
-//     await Firebase.auth().signInWithCredential(credential);
-//   } catch (error) {
-//     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-//       // user cancelled the login flow
-//       alert('Cancel');
-//     } else if (error.code === statusCodes.IN_PROGRESS) {
-//       alert('Signin in progress');
-//       // operation (f.e. sign in) is in progress already
-//     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-//       alert('PLAY_SERVICES_NOT_AVAILABLE');
-//       // play services not available or outdated
-//     } else {
-//       // some other error happened
-//       console.log('aqui');
-//     }
-//   }
+export const onAuthStateChanged = user => {
+  console.log(user);
+  if (user) {
+    return {
+      type: GET_USER_INFO,
+      payload: user,
+    };
+  }
+};
+
+export const configureGoogleSign = () => {
+  GoogleSignin.configure({
+    webClientId:
+      '889249922790-kgfkud9quvf5uq5533qajv5tosqcnc0b.apps.googleusercontent.com',
+    offlineAccess: true,
+  });
+};
+
+// const navigation = () => {
+//   const navigation = useNavigation();
+
+//   const navigateTo = route => navigation.navigate(route);
+
+//   return {navigateTo};
 // };
+
+export const signIn = async () => {
+  try {
+    await GoogleSignin.hasPlayServices();
+    const {accessToken, idToken} = await GoogleSignin.signIn();
+    const credential = auth.GoogleAuthProvider.credential(idToken, accessToken);
+    await auth().signInWithCredential(credential);
+    // navigation('controleLab');
+    return {type: SIGN_IN, payload: true};
+  } catch (error) {
+    if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+      console.log('Process Cancelled');
+    } else if (error.code === statusCodes.IN_PROGRESS) {
+      console.log('Process in progress');
+    } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+      console.log('Play services are not available');
+    } else {
+      console.log('Something else went wrong... ', error.toString());
+    }
+  }
+};
 
 export const signOut = async () => {
   try {
     await GoogleSignin.revokeAccess();
     await GoogleSignin.signOut();
-    // setloggedIn(false);
-    // setuserInfo([]);
+    console.log('deslogado');
+    return {type: SIGN_OUT};
   } catch (error) {
     console.error(error);
   }

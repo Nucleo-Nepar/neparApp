@@ -8,6 +8,9 @@ import {
   CADASTRO_EM_ANDAMENTO,
   LOGIN_USUARIO_ERRO,
   LOGIN_USUARIO_SUCESSO,
+  GET_USER_INFO,
+  SIGN_OUT,
+  SIGN_IN,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -19,9 +22,7 @@ const INITIAL_STATE = {
   loading_login: false,
   loading_cadastro: false,
   loggedIn: false,
-  setLoggedIn: false,
-  userInfo: [],
-  setUserInfo: [],
+  userInfo: {},
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -44,6 +45,12 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, ...INITIAL_STATE};
     case CADASTRO_EM_ANDAMENTO:
       return {...state, loading_cadastro: true};
+    case SIGN_IN:
+      return {...state, loggedIn: true};
+    case SIGN_OUT:
+      return {...state, loggedIn: false};
+    case GET_USER_INFO:
+      return {...state, loggedIn: true, userInfo: action.payload};
   }
 
   return state;

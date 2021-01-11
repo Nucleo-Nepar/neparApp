@@ -1,20 +1,18 @@
 import React, {useEffect} from 'react';
 import {ActivityIndicator} from 'react-native';
-import Firebase from '../Firebase';
+import auth from '@react-native-firebase/auth';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {
   modificaEmail,
   modificaSenha,
   autenticarUsuario,
-  signIn,
   signOut,
+  signIn,
+  configureGoogleSign,
+  onAuthStateChanged,
 } from '../actions/AutenticationActions';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
-} from '@react-native-community/google-signin';
+import {GoogleSigninButton} from '@react-native-community/google-signin';
 
 import COLORS from '../assets/colors';
 import logo from '../assets/imgs/logoCescuro.png';
@@ -25,48 +23,22 @@ const Login = props => {
       return <ActivityIndicator size="large" />;
     }
     return (
-      <StyledButton onPress={() => _autenticaUsuario()}>
+      <StyledButton onPress={() => signOut()}>
         <StyledText>Acessar</StyledText>
       </StyledButton>
     );
   };
 
-  const _signIn = async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      console.log('antes');
-      const userInfo = await GoogleSignin.signIn();
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // user cancelled the login flow
-
-        alert('Cancel');
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        alert('Signin in progress');
-        // operation (f.e. sign in) is in progress already
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        alert('PLAY_SERVICES_NOT_AVAILABLE');
-        // play services not available or outdated
-      } else {
-        // some other error happened
-        console.log('aqui');
-      }
-    }
-  };
+  useEffect(() => {
+    configureGoogleSign();
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, []);
 
   const _autenticaUsuario = () => {
     const {email, senha} = props;
     props.autenticarUsuario({email, senha});
   };
-
-  useEffect(() => {
-    GoogleSignin.configure({
-      scopes: ['email'], // what API you want to access on behalf of the user, default is email and profile
-      webClientId:
-        '889249922790-kgfkud9quvf5uq5533qajv5tosqcnc0b.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
-      offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
-    });
-  }, []);
 
   return (
     <StyledBackground>
@@ -95,7 +67,7 @@ const Login = props => {
               style={{width: 192, height: 48}}
               size={GoogleSigninButton.Size.Wide}
               color={GoogleSigninButton.Color.Dark}
-              onPress={() => _signIn()}
+              onPress={() => signIn()}
             />
           </StyledSignin>
           <StyledView>
@@ -103,11 +75,9 @@ const Login = props => {
               <StyledText>You are currently logged out</StyledText>
             )}
             {props.loggedIn && (
-              <StyledButton
-                onPress={() => props.signOut()}
-                title="LogOut"
-                color="red"
-              />
+              <StyledButton onPress={() => signOut()}>
+                <StyledError>Logout</StyledError>
+              </StyledButton>
             )}
           </StyledView>
         </StyledView>
@@ -199,12 +169,18 @@ const mapStatetoProps = state => ({
   erroLogin: state.AutenticationReducer.erroLogin,
   loading_login: state.AutenticationReducer.loading_login,
   loggedIn: state.AutenticationReducer.loggedIn,
-  setLoggedIn: state.AutenticationReducer.setLoggedIn,
   userInfo: state.AutenticationReducer.userInfo,
-  setUserInfo: state.AutenticationReducer.setUserInfo,
 });
 
 export default connect(
   mapStatetoProps,
-  {modificaEmail, modificaSenha, autenticarUsuario, signOut, signIn},
+  {
+    modificaEmail,
+    modificaSenha,
+    autenticarUsuario,
+    signIn,
+    signOut,
+    onAuthStateChanged,
+    configureGoogleSign,
+  },
 )(Login);
