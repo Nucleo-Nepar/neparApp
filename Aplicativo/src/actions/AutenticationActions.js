@@ -2,7 +2,6 @@ import Firebase from '../Firebase';
 import b64 from 'base-64';
 import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
 import auth from '@react-native-firebase/auth';
-import {useNavigation} from '@react-navigation/native';
 import {
   MODIFICA_EMAIL,
   MODIFICA_SENHA,
@@ -57,21 +56,12 @@ export const configureGoogleSign = () => {
   });
 };
 
-// const navigation = () => {
-//   const navigation = useNavigation();
-
-//   const navigateTo = route => navigation.navigate(route);
-
-//   return {navigateTo};
-// };
-
 export const signIn = async () => {
   try {
     await GoogleSignin.hasPlayServices();
     const {accessToken, idToken} = await GoogleSignin.signIn();
     const credential = auth.GoogleAuthProvider.credential(idToken, accessToken);
     await auth().signInWithCredential(credential);
-    // navigation('controleLab');
     return {type: SIGN_IN, payload: true};
   } catch (error) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED) {

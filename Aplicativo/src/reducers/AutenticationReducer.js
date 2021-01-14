@@ -46,11 +46,11 @@ export default (state = INITIAL_STATE, action) => {
     case CADASTRO_EM_ANDAMENTO:
       return {...state, loading_cadastro: true};
     case SIGN_IN:
-      return {...state, loggedIn: true};
+      return {...state, loggedIn: action.payload};
     case SIGN_OUT:
-      return {...state, loggedIn: false};
+      return {...state, loggedIn: false, userInfo: {}};
     case GET_USER_INFO:
-      return {...state, loggedIn: true, userInfo: action.payload};
+      return {...state, userInfo: action.payload};
   }
 
   return state;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
 import {connect} from 'react-redux';
@@ -13,7 +13,7 @@ import COLORS from './assets/colors';
 
 const Drawer = createDrawerNavigator();
 
-const Routes = () => {
+const Routes = props => {
   return (
     <NavigationContainer>
       <Drawer.Navigator
@@ -34,6 +34,8 @@ const Routes = () => {
         <Drawer.Screen name="login" component={Login} />
 
         <Drawer.Screen name="register" component={Register} />
+
+        <Drawer.Screen name="side" component={SideBar} />
 
         <Drawer.Screen
           name="controleLab"

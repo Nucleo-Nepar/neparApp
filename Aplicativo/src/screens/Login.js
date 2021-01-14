@@ -7,7 +7,6 @@ import {
   modificaEmail,
   modificaSenha,
   autenticarUsuario,
-  signOut,
   signIn,
   configureGoogleSign,
   onAuthStateChanged,
@@ -23,7 +22,7 @@ const Login = props => {
       return <ActivityIndicator size="large" />;
     }
     return (
-      <StyledButton onPress={() => signOut()}>
+      <StyledButton onPress={() => _autenticaUsuario()}>
         <StyledText>Acessar</StyledText>
       </StyledButton>
     );
@@ -34,6 +33,13 @@ const Login = props => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber;
   }, []);
+
+  const logged = props.loggedIn;
+
+  useEffect(() => {
+    console.log('passou');
+    props.navigation.navigate('controleLab');
+  }, [logged, props.navigation]);
 
   const _autenticaUsuario = () => {
     const {email, senha} = props;
@@ -70,16 +76,6 @@ const Login = props => {
               onPress={() => signIn()}
             />
           </StyledSignin>
-          <StyledView>
-            {!props.loggedIn && (
-              <StyledText>You are currently logged out</StyledText>
-            )}
-            {props.loggedIn && (
-              <StyledButton onPress={() => signOut()}>
-                <StyledError>Logout</StyledError>
-              </StyledButton>
-            )}
-          </StyledView>
         </StyledView>
         <StyledError>{props.erroLogin}</StyledError>
         <StyledRegister onPress={() => props.navigation.navigate('register')}>
@@ -179,7 +175,6 @@ export default connect(
     modificaSenha,
     autenticarUsuario,
     signIn,
-    signOut,
     onAuthStateChanged,
     configureGoogleSign,
   },
