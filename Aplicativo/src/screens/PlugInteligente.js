@@ -174,6 +174,7 @@ const mapStateToProps = state => ({
   potencia: state.AppReducer.potencia,
   corrente: state.AppReducer.corrente,
   consumoDinheiro: state.AppReducer.consumoDinheiro,
+  userInfo: state.AutenticationReducer.userInfo,
 });
 
 export default connect(

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {
@@ -10,15 +10,16 @@ import {
 import {signOut} from '../actions/AutenticationActions';
 
 import StyledButton from './ButtonSideBar';
+import User from './User';
 
 const SideBar = props => {
+  const redireciona = () => props.navigation.navigate('login');
+
   return (
     <>
       <StyledView>
         <StyledContainer>
-          <StyledText>
-            NEPAR - Núcleo de Estudos de Automação Residencial
-          </StyledText>
+          <User />
         </StyledContainer>
         <StyledButton
           icon={faLightbulb}
@@ -36,7 +37,7 @@ const SideBar = props => {
         <StyledButton
           icon={faSignOutAlt}
           text="Sair"
-          onPress={() => props.signOut()}
+          onPress={() => props.signOut(() => redireciona())}
         />
       </StyledSignOut>
     </>
@@ -46,7 +47,6 @@ const SideBar = props => {
 const StyledContainer = styled.View`
   display: flex;
   flex-direction: row;
-  height: 150px;
   border-bottom-color: #f0edf6;
   border-bottom-width: 0.2px;
   margin-left: 10px;
@@ -76,6 +76,7 @@ const StyledSignOut = styled.View`
 
 const mapStateToProps = state => ({
   loggedIn: state.AutenticationReducer.loggedIn,
+  userInfo: state.AutenticationReducer.userInfo,
 });
 
 export default connect(

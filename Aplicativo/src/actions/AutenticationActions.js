@@ -39,13 +39,15 @@ export const modificaNome = texto => {
 };
 
 export const onAuthStateChanged = user => {
-  console.log(user);
-  if (user) {
-    return {
-      type: GET_USER_INFO,
-      payload: user,
-    };
+  if (user !== {}) {
   }
+};
+
+const getCurrentUser = async () => {
+  return {
+    type: GET_USER_INFO,
+    payload: 'teste',
+  };
 };
 
 export const configureGoogleSign = () => {
@@ -56,12 +58,14 @@ export const configureGoogleSign = () => {
   });
 };
 
-export const signIn = async () => {
+export const signIn = async redireciona => {
   try {
     await GoogleSignin.hasPlayServices();
     const {accessToken, idToken} = await GoogleSignin.signIn();
     const credential = auth.GoogleAuthProvider.credential(idToken, accessToken);
     await auth().signInWithCredential(credential);
+    const currentUser = await GoogleSignin.getCurrentUser();
+    redireciona();
     return {type: SIGN_IN, payload: true};
   } catch (error) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -76,15 +80,13 @@ export const signIn = async () => {
   }
 };
 
-export const signOut = async () => {
-  try {
-    await GoogleSignin.revokeAccess();
-    await GoogleSignin.signOut();
-    console.log('deslogado');
-    return {type: SIGN_OUT};
-  } catch (error) {
-    console.error(error);
-  }
+export const signOut = redireciona => {
+  return dispatch => {
+    GoogleSignin.revokeAccess();
+    GoogleSignin.signOut();
+    redireciona();
+    dispatch({type: SIGN_OUT});
+  };
 };
 
 export const cadastraUsuario = ({nome, email, senha}) => {

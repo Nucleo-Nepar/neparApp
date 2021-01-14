@@ -22,7 +22,7 @@ const INITIAL_STATE = {
   loading_login: false,
   loading_cadastro: false,
   loggedIn: false,
-  userInfo: {},
+  userInfo: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -46,7 +46,7 @@ export default (state = INITIAL_STATE, action) => {
     case CADASTRO_EM_ANDAMENTO:
       return {...state, loading_cadastro: true};
     case SIGN_IN:
-      return {...state, loggedIn: action.payload};
+      return {...state, loggedIn: true};
     case SIGN_OUT:
       return {...state, loggedIn: false, userInfo: {}};
     case GET_USER_INFO:

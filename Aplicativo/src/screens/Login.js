@@ -28,18 +28,15 @@ const Login = props => {
     );
   };
 
+  console.log(props.loggedIn);
+
   useEffect(() => {
     configureGoogleSign();
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber;
   }, []);
 
-  const logged = props.loggedIn;
-
-  useEffect(() => {
-    console.log('passou');
-    props.navigation.navigate('controleLab');
-  }, [logged, props.navigation]);
+  const redireciona = () => props.navigation.navigate('controleLab');
 
   const _autenticaUsuario = () => {
     const {email, senha} = props;
@@ -73,7 +70,7 @@ const Login = props => {
               style={{width: 192, height: 48}}
               size={GoogleSigninButton.Size.Wide}
               color={GoogleSigninButton.Color.Dark}
-              onPress={() => signIn()}
+              onPress={() => signIn(() => redireciona())}
             />
           </StyledSignin>
         </StyledView>
