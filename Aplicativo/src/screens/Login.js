@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
-import {ActivityIndicator} from 'react-native';
-import auth from '@react-native-firebase/auth';
-import styled from 'styled-components';
-import {connect} from 'react-redux';
+import React, { useEffect } from 'react'
+import { ActivityIndicator } from 'react-native'
+import auth from '@react-native-firebase/auth'
+import styled from 'styled-components'
+import { connect } from 'react-redux'
 import {
   modificaEmail,
   modificaSenha,
@@ -10,38 +10,38 @@ import {
   signIn,
   configureGoogleSign,
   onAuthStateChanged,
-} from '../actions/AutenticationActions';
-import {GoogleSigninButton} from '@react-native-community/google-signin';
+} from '../actions/AutenticationActions'
+import { GoogleSigninButton } from '@react-native-community/google-signin'
 
-import COLORS from '../assets/colors';
-import logo from '../assets/imgs/logoCescuro.png';
+import COLORS from '../assets/colors'
+import logo from '../assets/imgs/logoCescuro.png'
 
-const Login = props => {
+const Login = (props) => {
   const renderBtnAcessar = () => {
     if (props.loading_login) {
-      return <ActivityIndicator size="large" />;
+      return <ActivityIndicator size="large" />
     }
     return (
       <StyledButton onPress={() => _autenticaUsuario()}>
         <StyledText>Acessar</StyledText>
       </StyledButton>
-    );
-  };
+    )
+  }
 
-  console.log(props.loggedIn);
+  console.log(props.loggedIn)
 
   useEffect(() => {
-    configureGoogleSign();
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
-  }, []);
+    configureGoogleSign()
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
+    return subscriber
+  }, [])
 
-  const redireciona = () => props.navigation.navigate('controleLab');
+  const redireciona = () => props.navigation.navigate('controleLab')
 
   const _autenticaUsuario = () => {
-    const {email, senha} = props;
-    props.autenticarUsuario({email, senha});
-  };
+    const { email, senha } = props
+    props.autenticarUsuario({ email, senha })
+  }
 
   return (
     <StyledBackground>
@@ -54,7 +54,7 @@ const Login = props => {
           placeholder="E-mail"
           placeholderTextColor={COLORS.textColor}
           underlineColorAndroid={COLORS.textColor}
-          onChangeText={texto => props.modificaEmail(texto)}
+          onChangeText={(texto) => props.modificaEmail(texto)}
         />
         <StyledInput
           secureTextEntry
@@ -62,12 +62,12 @@ const Login = props => {
           placeholder="Senha"
           placeholderTextColor={COLORS.textColor}
           underlineColorAndroid={COLORS.textColor}
-          onChangeText={texto => props.modificaSenha(texto)}
+          onChangeText={(texto) => props.modificaSenha(texto)}
         />
         <StyledView>
           <StyledSignin>
             <GoogleSigninButton
-              style={{width: 192, height: 48}}
+              style={{ width: 192, height: 48 }}
               size={GoogleSigninButton.Size.Wide}
               color={GoogleSigninButton.Color.Dark}
               onPress={() => signIn(() => redireciona())}
@@ -83,15 +83,15 @@ const Login = props => {
       </StyledView>
       <StyledView>{renderBtnAcessar()}</StyledView>
     </StyledBackground>
-  );
-};
+  )
+}
 
 const StyledBackground = styled.View`
   flex: 1;
   padding: 25px;
   background-color: ${COLORS.background};
   color: ${COLORS.textColor};
-`;
+`
 
 const StyledInput = styled.TextInput`
   margin-top: 15px;
@@ -99,14 +99,14 @@ const StyledInput = styled.TextInput`
   height: 45px;
   color: ${COLORS.textColor};
   font-family: 'Spartan';
-`;
+`
 
 const StyledSignin = styled.View`
   display: flex;
   flex: 2;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const StyledLogoContainer = styled.View`
   flex: 1;
@@ -114,36 +114,36 @@ const StyledLogoContainer = styled.View`
   align-items: center;
   padding-top: 10px;
   color: ${COLORS.textColor};
-`;
+`
 
 const StyledImage = styled.Image`
   width: 250px;
   height: 250px;
   margin-top: 15px;
-`;
+`
 
 const StyledRegister = styled.TouchableHighlight`
   display: flex;
   justify-content: center;
-`;
+`
 
 const StyledText = styled.Text`
   font-size: 15px;
   text-align: center;
   color: ${COLORS.textColor};
   font-family: 'Spartan';
-`;
+`
 const StyledError = styled.Text`
   color: red;
   font-size: 15px;
   text-align: center;
   margin-bottom: 5px;
-`;
+`
 const StyledView = styled.View`
   flex: 1;
   display: flex;
   justify-content: center;
-`;
+`
 
 const StyledButton = styled.TouchableHighlight`
   display: flex;
@@ -154,25 +154,22 @@ const StyledButton = styled.TouchableHighlight`
   height: 40px;
   border-radius: 13px;
   padding: 0px 15px 0px 15px;
-`;
+`
 
-const mapStatetoProps = state => ({
+const mapStatetoProps = (state) => ({
   email: state.AutenticationReducer.email,
   senha: state.AutenticationReducer.senha,
   erroLogin: state.AutenticationReducer.erroLogin,
   loading_login: state.AutenticationReducer.loading_login,
   loggedIn: state.AutenticationReducer.loggedIn,
   userInfo: state.AutenticationReducer.userInfo,
-});
+})
 
-export default connect(
-  mapStatetoProps,
-  {
-    modificaEmail,
-    modificaSenha,
-    autenticarUsuario,
-    signIn,
-    onAuthStateChanged,
-    configureGoogleSign,
-  },
-)(Login);
+export default connect(mapStatetoProps, {
+  modificaEmail,
+  modificaSenha,
+  autenticarUsuario,
+  signIn,
+  onAuthStateChanged,
+  configureGoogleSign,
+})(Login)

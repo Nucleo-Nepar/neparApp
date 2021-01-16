@@ -11,7 +11,7 @@ import {
   GET_USER_INFO,
   SIGN_OUT,
   SIGN_IN,
-} from '../actions/types';
+} from '../actions/types'
 
 const INITIAL_STATE = {
   nome: '',
@@ -23,35 +23,35 @@ const INITIAL_STATE = {
   loading_cadastro: false,
   loggedIn: false,
   userInfo: '',
-};
+}
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case MODIFICA_EMAIL:
-      return {...state, email: action.payload};
+      return { ...state, email: action.payload }
     case MODIFICA_SENHA:
-      return {...state, senha: action.payload};
+      return { ...state, senha: action.payload }
     case MODIFICA_NOME:
-      return {...state, nome: action.payload};
+      return { ...state, nome: action.payload }
     case CADASTRO_USUARIO_ERRO:
-      return {...state, erroCadastro: action.payload, loading_cadastro: false};
+      return { ...state, erroCadastro: action.payload, loading_cadastro: false }
     case CADASTRO_USUARIO_SUCESSO:
-      return {...state, nome: '', senha: '', loading_cadastro: action.payload};
+      return { ...state, nome: '', senha: '', loading_cadastro: action.payload }
     case LOGIN_USUARIO_ERRO:
-      return {...state, erroLogin: action.payload, loading_login: false};
+      return { ...state, erroLogin: action.payload, loading_login: false }
     case LOGIN_EM_ANDAMENTO:
-      return {...state, loading_login: true};
+      return { ...state, loading_login: true }
     case LOGIN_USUARIO_SUCESSO:
-      return {...state, ...INITIAL_STATE};
+      return { ...state, ...INITIAL_STATE }
     case CADASTRO_EM_ANDAMENTO:
-      return {...state, loading_cadastro: true};
+      return { ...state, loading_cadastro: true }
     case SIGN_IN:
-      return {...state, loggedIn: true};
+      return { ...state, loggedIn: true }
     case SIGN_OUT:
-      return {...state, loggedIn: false, userInfo: {}};
+      return { ...state, loggedIn: false, userInfo: {} }
     case GET_USER_INFO:
-      return {...state, userInfo: action.payload};
+      return { ...state, userInfo: action.payload }
   }
 
-  return state;
-};
+  return state
+}

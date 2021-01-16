@@ -1,23 +1,23 @@
-import React, {useEffect} from 'react';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {NavigationContainer} from '@react-navigation/native';
-import {connect} from 'react-redux';
+import React, { useEffect } from 'react'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { NavigationContainer } from '@react-navigation/native'
+import { connect } from 'react-redux'
 
-import Login from './screens/Login';
-import Register from './screens/Register';
-import SideBar from './components/SideBar';
-import PlugInteligente from './screens/PlugInteligente';
-import ControleLaboratorio from './screens/ControleLaboratorio';
+import Login from './screens/Login'
+import Register from './screens/Register'
+import SideBar from './components/SideBar'
+import PlugInteligente from './screens/PlugInteligente'
+import ControleLaboratorio from './screens/ControleLaboratorio'
 
-import COLORS from './assets/colors';
+import COLORS from './assets/colors'
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator()
 
-const Routes = props => {
+const Routes = (props) => {
   return (
     <NavigationContainer>
       <Drawer.Navigator
-        drawerContent={props => <SideBar {...props} />}
+        drawerContent={(props) => <SideBar {...props} />}
         screenOptions={{
           headerStyle: {
             backgroundColor: COLORS.background,
@@ -30,7 +30,8 @@ const Routes = props => {
           },
           headerTitleAlign: 'center',
         }}
-        initialRouteName={Login}>
+        initialRouteName={Login}
+      >
         <Drawer.Screen name="login" component={Login} />
 
         <Drawer.Screen name="register" component={Register} />
@@ -56,11 +57,11 @@ const Routes = props => {
         />
       </Drawer.Navigator>
     </NavigationContainer>
-  );
-};
+  )
+}
 
-const mapStatetoProps = state => ({
+const mapStatetoProps = (state) => ({
   loggedIn: state.AutenticationReducer.loggedIn,
-});
+})
 
-export default connect(mapStatetoProps)(Routes);
+export default connect(mapStatetoProps)(Routes)
