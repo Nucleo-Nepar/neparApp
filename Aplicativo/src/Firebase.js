@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA77CAl1ROLljXud1tl0KBa8DHKGOhcpAM',
@@ -8,8 +8,8 @@ const firebaseConfig = {
   storageBucket: 'raspberry-firebase-ccc33.appspot.com',
   messagingSenderId: '889249922790',
   appId: '1:889249922790:web:6fa3291da1f7e54e124527',
-};
+}
 
-const Firebase = firebase.initializeApp(firebaseConfig);
+const Firebase = firebase.initializeApp(firebaseConfig)
 
-export default Firebase;
+export default Firebase

@@ -1,19 +1,19 @@
-import React from 'react';
-import styled from 'styled-components';
-import {connect} from 'react-redux';
+import React from 'react'
+import styled from 'styled-components'
+import { connect } from 'react-redux'
 import {
   faLightbulb,
   faPlug,
   faFire,
   faSignOutAlt,
-} from '@fortawesome/free-solid-svg-icons';
-import {signOut} from '../actions/AutenticationActions';
+} from '@fortawesome/free-solid-svg-icons'
+import { signOut } from '../actions/AutenticationActions'
 
-import StyledButton from './ButtonSideBar';
-import User from './User';
+import StyledButton from './ButtonSideBar'
+import User from './User'
 
-const SideBar = props => {
-  const redireciona = () => props.navigation.navigate('login');
+const SideBar = (props) => {
+  const redireciona = () => props.navigation.navigate('login')
 
   return (
     <>
@@ -41,8 +41,8 @@ const SideBar = props => {
         />
       </StyledSignOut>
     </>
-  );
-};
+  )
+}
 
 const StyledContainer = styled.View`
   display: flex;
@@ -54,17 +54,17 @@ const StyledContainer = styled.View`
   color: #f0edf6;
   align-items: center;
   justify-content: center;
-`;
+`
 
 const StyledText = styled.Text`
   color: #f0edf6;
   font-family: 'Quicksand-Semibold';
-`;
+`
 
 const StyledView = styled.View`
   flex: 1;
   background-color: #001d2e;
-`;
+`
 
 const StyledSignOut = styled.View`
   flex: 1;
@@ -72,16 +72,13 @@ const StyledSignOut = styled.View`
   flex-direction: column;
   justify-content: flex-end;
   background-color: #001d2e;
-`;
+`
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loggedIn: state.AutenticationReducer.loggedIn,
   userInfo: state.AutenticationReducer.userInfo,
-});
+})
 
-export default connect(
-  mapStateToProps,
-  {
-    signOut,
-  },
-)(SideBar);
+export default connect(mapStateToProps, {
+  signOut,
+})(SideBar)

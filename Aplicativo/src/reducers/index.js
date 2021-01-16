@@ -1,9 +1,9 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux'
 
-import AppReducer from './AppReducer';
-import AutenticationReducer from './AutenticationReducer';
+import AppReducer from './AppReducer'
+import AutenticationReducer from './AutenticationReducer'
 
 export default combineReducers({
   AppReducer,
   AutenticationReducer,
-});
+})

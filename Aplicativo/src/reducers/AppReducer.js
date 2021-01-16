@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _ from 'lodash'
 
 import {
   SWITCH_MODE,
@@ -7,7 +7,7 @@ import {
   VALUE_POTENCIA,
   VALUE_CORRENTE,
   VALOR_DINHEIRO,
-} from '../actions/types';
+} from '../actions/types'
 
 const INITIAL_STATE = {
   consumoKwh: '',
@@ -15,22 +15,22 @@ const INITIAL_STATE = {
   switchValue: true,
   potencia: '',
   corrente: '',
-};
+}
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case VALOR_LEITURA:
-      return {...state, consumoKwh: action.payload};
+      return { ...state, consumoKwh: action.payload }
     case SWITCH_MODE:
-      return {...state, switchValue: action.payload};
+      return { ...state, switchValue: action.payload }
     case VALUE_SWITCH:
-      return {...state, switchValue: action.payload};
+      return { ...state, switchValue: action.payload }
     case VALUE_POTENCIA:
-      return {...state, potencia: action.payload};
+      return { ...state, potencia: action.payload }
     case VALUE_CORRENTE:
-      return {...state, corrente: action.payload};
+      return { ...state, corrente: action.payload }
     case VALOR_DINHEIRO:
-      return {...state, consumoDinheiro: action.payload};
+      return { ...state, consumoDinheiro: action.payload }
   }
-  return state;
-};
+  return state
+}
