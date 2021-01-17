@@ -13,26 +13,30 @@ import COLORS from './assets/colors'
 
 const Drawer = createDrawerNavigator()
 
-const Routes = (props) => {
+const Routes = props => {
   return (
     <NavigationContainer>
       <Drawer.Navigator
-        drawerContent={(props) => <SideBar {...props} />}
+        drawerContent={props => <SideBar {...props} />}
         screenOptions={{
           headerStyle: {
-            backgroundColor: COLORS.background,
+            backgroundColor: COLORS.background
           },
           headerTintColor: COLORS.textColor,
           headerTitleStyle: {
             color: COLORS.textColor,
             fontSize: 23,
-            fontFamily: 'Spartan',
+            fontFamily: 'Spartan'
           },
-          headerTitleAlign: 'center',
+          headerTitleAlign: 'center'
         }}
         initialRouteName={Login}
       >
-        <Drawer.Screen name="login" component={Login} />
+        <Drawer.Screen
+          name="login"
+          component={Login}
+          options={{ swipeEnabled: false }}
+        />
 
         <Drawer.Screen name="register" component={Register} />
 
@@ -43,7 +47,7 @@ const Routes = (props) => {
           component={ControleLaboratorio}
           options={{
             title: 'Nepar',
-            headerShown: true,
+            headerShown: true
           }}
         />
 
@@ -52,7 +56,7 @@ const Routes = (props) => {
           component={PlugInteligente}
           options={{
             title: 'Nepar',
-            headerShown: true,
+            headerShown: true
           }}
         />
       </Drawer.Navigator>
@@ -60,8 +64,8 @@ const Routes = (props) => {
   )
 }
 
-const mapStatetoProps = (state) => ({
-  loggedIn: state.AutenticationReducer.loggedIn,
+const mapStatetoProps = state => ({
+  loggedIn: state.AutenticationReducer.loggedIn
 })
 
 export default connect(mapStatetoProps)(Routes)

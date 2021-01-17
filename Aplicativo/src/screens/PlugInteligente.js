@@ -8,23 +8,20 @@ import {
   change_switch,
   valor_Switch,
   valor_Corrente,
-  valor_Potencia,
+  valor_Potencia
 } from '../actions/AppActions'
 
 class PlugInteligente extends Component {
-  // UNSAFE_componentWillMount() {
-  //   this.props.valorLeitura();
-  //   this.props.valor_Switch();
-  //   this.props.valor_Corrente();
-  //   this.props.valor_Potencia();
-  // }
+  UNSAFE_componentWillMount() {
+    this.props.valorLeitura()
+    this.props.valor_Switch()
+    this.props.valor_Corrente()
+    this.props.valor_Potencia()
+  }
 
-  toggleSwitch = (value) => {
-    //onValueChange of the switch this function will be called
+  toggleSwitch = value => {
     this.props.switchValue = value
     this.props.change_switch(value)
-    //state changes according to switch
-    //which will result in re-render the text
   }
 
   render() {
@@ -61,10 +58,10 @@ class PlugInteligente extends Component {
                 contentInset={contentInset}
                 svg={{
                   fill: '#f0edf6',
-                  fontSize: 10,
+                  fontSize: 10
                 }}
                 numberOfTicks={10}
-                formatLabel={(value) => `R$${value}`}
+                formatLabel={value => `R$${value}`}
               />
               <LineChart
                 style={{ flex: 1, marginLeft: 20, marginRight: 15 }}
@@ -79,16 +76,16 @@ class PlugInteligente extends Component {
               style={{
                 flexDirection: 'row',
                 marginLeft: 10,
-                marginRight: -10,
+                marginRight: -10
               }}
               data={dataDia}
               contentInset={contentInsetdia}
               svg={{
                 fill: '#f0edf6',
-                fontSize: 10,
+                fontSize: 10
               }}
               numberOfTicks={5}
-              formatLabel={(value) => {
+              formatLabel={value => {
                 if (value === 0) {
                   return `${dia}/07`
                 } else if (value < 5) {
@@ -103,7 +100,7 @@ class PlugInteligente extends Component {
               justifyContent: 'space-evenly',
               flex: 1,
               margin: 10,
-              marginTop: 30,
+              marginTop: 30
             }}
           >
             <View>
@@ -124,7 +121,7 @@ class PlugInteligente extends Component {
               flexDirection: 'row',
               justifyContent: 'space-evenly',
               flex: 1,
-              marginTop: -5,
+              marginTop: -5
             }}
           >
             <View>
@@ -136,7 +133,7 @@ class PlugInteligente extends Component {
             <View
               style={{
                 flexDirection: 'row',
-                justifyContent: 'space-around',
+                justifyContent: 'space-around'
               }}
             >
               <View>
@@ -149,7 +146,7 @@ class PlugInteligente extends Component {
                           justifyContent: 'center',
                           fontSize: 23,
                           fontFamily: 'Quicksand-SemiBold',
-                          color: 'green',
+                          color: 'green'
                         }}
                       >
                         Desligado
@@ -173,88 +170,91 @@ class PlugInteligente extends Component {
     )
   }
 }
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   consumoKwh: state.AppReducer.consumoKwh,
   switchValue: state.AppReducer.switchValue,
   potencia: state.AppReducer.potencia,
   corrente: state.AppReducer.corrente,
   consumoDinheiro: state.AppReducer.consumoDinheiro,
-  userInfo: state.AutenticationReducer.userInfo,
+  userInfo: state.AutenticationReducer.userInfo
 })
 
-export default connect(mapStateToProps, {
-  valorLeitura,
-  valor_Switch,
-  change_switch,
-  valor_Corrente,
-  valor_Potencia,
-})(PlugInteligente)
+export default connect(
+  mapStateToProps,
+  {
+    valorLeitura,
+    valor_Switch,
+    change_switch,
+    valor_Corrente,
+    valor_Potencia
+  }
+)(PlugInteligente)
 
 const style = StyleSheet.create({
   top: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   topText: {
     justifyContent: 'center',
     fontSize: 23,
     fontFamily: 'Quicksand-Regular',
-    color: '#f0edf6',
+    color: '#f0edf6'
   },
   consumo: {
     justifyContent: 'center',
     fontSize: 23,
     fontFamily: 'Quicksand-SemiBold',
-    color: '#f0edf6',
+    color: '#f0edf6'
   },
   flex: {
     flexDirection: 'column',
     justifyContent: 'space-around',
     flex: 1,
-    backgroundColor: '#001d2e',
+    backgroundColor: '#001d2e'
   },
   mid: {
     flex: 3,
     alignItems: 'center',
-    marginLeft: 5,
+    marginLeft: 5
   },
   dispositivo: {
     fontSize: 20,
     padding: 10,
     color: '#f0edf6',
-    fontFamily: 'Sparta',
+    fontFamily: 'Sparta'
   },
   bottom: {
-    flex: 1,
+    flex: 1
   },
   header: {
     backgroundColor: '#001d2e',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   headerText: {
     fontSize: 23,
     color: '#f0edf6',
     padding: 17,
-    fontFamily: 'Spartan',
+    fontFamily: 'Spartan'
   },
   card: {
     backgroundColor: '#001d2e',
     flex: 1,
     borderTopColor: '#f0edf6',
     borderTopWidth: 0.2,
-    marginHorizontal: 10,
+    marginHorizontal: 10
   },
   text: {
     fontSize: 25,
-    color: '#f0edf6',
+    color: '#f0edf6'
   },
   valor: {
     fontSize: 30,
     marginTop: 35,
-    color: '#f0edf6',
+    color: '#f0edf6'
   },
-  container: {},
+  container: {}
 })

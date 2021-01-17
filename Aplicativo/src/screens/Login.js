@@ -9,14 +9,14 @@ import {
   autenticarUsuario,
   signIn,
   configureGoogleSign,
-  onAuthStateChanged,
+  onAuthStateChanged
 } from '../actions/AutenticationActions'
 import { GoogleSigninButton } from '@react-native-community/google-signin'
 
 import COLORS from '../assets/colors'
 import logo from '../assets/imgs/logoCescuro.png'
 
-const Login = (props) => {
+const Login = props => {
   const renderBtnAcessar = () => {
     if (props.loading_login) {
       return <ActivityIndicator size="large" />
@@ -27,8 +27,6 @@ const Login = (props) => {
       </StyledButton>
     )
   }
-
-  console.log(props.loggedIn)
 
   useEffect(() => {
     configureGoogleSign()
@@ -54,7 +52,7 @@ const Login = (props) => {
           placeholder="E-mail"
           placeholderTextColor={COLORS.textColor}
           underlineColorAndroid={COLORS.textColor}
-          onChangeText={(texto) => props.modificaEmail(texto)}
+          onChangeText={texto => props.modificaEmail(texto)}
         />
         <StyledInput
           secureTextEntry
@@ -62,7 +60,7 @@ const Login = (props) => {
           placeholder="Senha"
           placeholderTextColor={COLORS.textColor}
           underlineColorAndroid={COLORS.textColor}
-          onChangeText={(texto) => props.modificaSenha(texto)}
+          onChangeText={texto => props.modificaSenha(texto)}
         />
         <StyledView>
           <StyledSignin>
@@ -156,20 +154,23 @@ const StyledButton = styled.TouchableHighlight`
   padding: 0px 15px 0px 15px;
 `
 
-const mapStatetoProps = (state) => ({
+const mapStatetoProps = state => ({
   email: state.AutenticationReducer.email,
   senha: state.AutenticationReducer.senha,
   erroLogin: state.AutenticationReducer.erroLogin,
   loading_login: state.AutenticationReducer.loading_login,
   loggedIn: state.AutenticationReducer.loggedIn,
-  userInfo: state.AutenticationReducer.userInfo,
+  userInfo: state.AutenticationReducer.userInfo
 })
 
-export default connect(mapStatetoProps, {
-  modificaEmail,
-  modificaSenha,
-  autenticarUsuario,
-  signIn,
-  onAuthStateChanged,
-  configureGoogleSign,
-})(Login)
+export default connect(
+  mapStatetoProps,
+  {
+    modificaEmail,
+    modificaSenha,
+    autenticarUsuario,
+    signIn,
+    onAuthStateChanged,
+    configureGoogleSign
+  }
+)(Login)

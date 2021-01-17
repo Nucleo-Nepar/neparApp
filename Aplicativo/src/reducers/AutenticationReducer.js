@@ -10,7 +10,7 @@ import {
   LOGIN_USUARIO_SUCESSO,
   GET_USER_INFO,
   SIGN_OUT,
-  SIGN_IN,
+  SIGN_IN
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -22,7 +22,7 @@ const INITIAL_STATE = {
   loading_login: false,
   loading_cadastro: false,
   loggedIn: false,
-  userInfo: '',
+  userInfo: ''
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -48,9 +48,9 @@ export default (state = INITIAL_STATE, action) => {
     case SIGN_IN:
       return { ...state, loggedIn: true }
     case SIGN_OUT:
-      return { ...state, loggedIn: false, userInfo: {} }
+      return { ...state, loggedIn: false, userInfo: '' }
     case GET_USER_INFO:
-      return { ...state, userInfo: action.payload }
+      return { ...state, userInfo: action.payload, loggedIn: true }
   }
 
   return state

@@ -5,16 +5,15 @@ import {
   faLightbulb,
   faPlug,
   faFire,
-  faSignOutAlt,
+  faSignOutAlt
 } from '@fortawesome/free-solid-svg-icons'
 import { signOut } from '../actions/AutenticationActions'
 
 import StyledButton from './ButtonSideBar'
 import User from './User'
 
-const SideBar = (props) => {
+const SideBar = props => {
   const redireciona = () => props.navigation.navigate('login')
-
   return (
     <>
       <StyledView>
@@ -34,6 +33,7 @@ const SideBar = (props) => {
         <StyledButton icon={faFire} text="Sensor de Gás" onPress={() => {}} />
       </StyledView>
       <StyledSignOut>
+        <StyledText>{`${props.userInfo.email}`}</StyledText>
         <StyledButton
           icon={faSignOutAlt}
           text="Sair"
@@ -57,6 +57,7 @@ const StyledContainer = styled.View`
 `
 
 const StyledText = styled.Text`
+  text-align: center;
   color: #f0edf6;
   font-family: 'Quicksand-Semibold';
 `
@@ -74,11 +75,14 @@ const StyledSignOut = styled.View`
   background-color: #001d2e;
 `
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   loggedIn: state.AutenticationReducer.loggedIn,
-  userInfo: state.AutenticationReducer.userInfo,
+  userInfo: state.AutenticationReducer.userInfo
 })
 
-export default connect(mapStateToProps, {
-  signOut,
-})(SideBar)
+export default connect(
+  mapStateToProps,
+  {
+    signOut
+  }
+)(SideBar)
