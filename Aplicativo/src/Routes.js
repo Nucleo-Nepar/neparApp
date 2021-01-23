@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
 import { connect } from 'react-redux'
@@ -13,14 +13,16 @@ import COLORS from './assets/colors'
 
 const Drawer = createDrawerNavigator()
 
-const Routes = props => {
+const Routes = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator
         drawerContent={props => <SideBar {...props} />}
         screenOptions={{
           headerStyle: {
-            backgroundColor: COLORS.background
+            backgroundColor: COLORS.background,
+            borderBottomColor: COLORS.textColor,
+            borderBottomWidth: 0.2
           },
           headerTintColor: COLORS.textColor,
           headerTitleStyle: {
@@ -30,7 +32,7 @@ const Routes = props => {
           },
           headerTitleAlign: 'center'
         }}
-        initialRouteName={Login}
+        initialRouteName={'controleLab'}
       >
         <Drawer.Screen
           name="login"

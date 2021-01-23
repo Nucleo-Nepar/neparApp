@@ -242,10 +242,7 @@ const style = StyleSheet.create({
   },
   card: {
     backgroundColor: '#001d2e',
-    flex: 1,
-    borderTopColor: '#f0edf6',
-    borderTopWidth: 0.2,
-    marginHorizontal: 10
+    flex: 1
   },
   text: {
     fontSize: 25,
