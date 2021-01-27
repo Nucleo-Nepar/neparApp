@@ -24,10 +24,11 @@ const StyledButton = styled.View`
 `
 
 const StyledImage = styled.Image`
-  width: 100;
-  height: 100;
+  border-color: gray;
+  border-width: 1.5px;
+  width: 100px;
+  height: 100px;
   border-radius: 50px;
-  border: 1.5px solid gray;
 `
 
 const StyledText = styled.Text`

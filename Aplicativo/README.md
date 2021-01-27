@@ -23,3 +23,7 @@ Esse aplicativo é produzido em React-Native, uma biblioteca Javascript que dese
 ## Importante!
 
 É de extrema importância que antes de iniciar e começar a desenvolver no código do aplicativo, que se tenha conhecimento e os requisitos acima citados, pois sem eles a produção pode ser prejudicada e até mesmo não compreender como funcionar o app em si.
+
+## Dependências
+
+react-native-switch-selector

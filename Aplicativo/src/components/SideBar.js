@@ -33,7 +33,7 @@ const SideBar = props => {
         <StyledButton icon={faFire} text="Sensor de Gás" onPress={() => {}} />
       </StyledView>
       <StyledSignOut>
-        <StyledText>{`${props.userInfo.email}`}</StyledText>
+        <StyledText>{`${props.userInfo.email || ''}`}</StyledText>
         <StyledButton
           icon={faSignOutAlt}
           text="Sair"
