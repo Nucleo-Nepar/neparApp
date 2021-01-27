@@ -32,7 +32,7 @@ const Routes = () => {
           },
           headerTitleAlign: 'center'
         }}
-        initialRouteName={'controleLab'}
+        initialRouteName={'login'}
       >
         <Drawer.Screen
           name="login"

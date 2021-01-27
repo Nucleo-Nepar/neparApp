@@ -10,27 +10,17 @@ import { isLogged, getCurrentUser } from '../actions/AutenticationActions'
 import { lab_control, change_switch } from '../actions/AppActions'
 
 const ControleLaboratorio = props => {
-  const { L1, L2, L3, L4 } = props.laboratorio
-
-  const luzes = {
-    l1: L1 ? 1 : 0,
-    l2: L2 ? 1 : 0,
-    l3: L3 ? 1 : 0,
-    l4: L4 ? 1 : 0
-  }
+  const { L1, L2, L3, L4, Projetor } = props.laboratorio
 
   useEffect(() => {
     props.lab_control()
-  }, [])
-
-  useEffect(() => {
     const unsubscribe = props.navigation.addListener('focus', () => {
       props.getCurrentUser(false)
     })
     return unsubscribe
-  }, [props, props.navigation])
+  }, [])
 
-  const options = [
+  const light = [
     {
       value: false,
       customIcon: <FontAwesomeIcon icon={faLightbulb} size={25} />,
@@ -49,6 +39,19 @@ const ControleLaboratorio = props => {
     }
   ]
 
+  const options = [
+    {
+      value: false,
+      label: 'Off',
+      activeColor: 'gray'
+    },
+    {
+      value: true,
+      label: 'On',
+      activeColor: 'green'
+    }
+  ]
+
   return (
     <StyledContainer>
       <StyledTitle>Controle do Laboratório</StyledTitle>
@@ -58,8 +61,9 @@ const ControleLaboratorio = props => {
             <StyledText>Luz 1:</StyledText>
             <SwitchSelector
               backgroundColor="lightgray"
-              options={options}
+              options={light}
               initial={0}
+              value={L1 ? 1 : 0}
               onPress={value => props.change_switch(value, '/LIE/L1')}
             />
           </StyledSwitch>
@@ -67,8 +71,9 @@ const ControleLaboratorio = props => {
             <StyledText>Luz 2:</StyledText>
             <SwitchSelector
               backgroundColor="lightgray"
-              options={options}
+              options={light}
               initial={0}
+              value={L2 ? 1 : 0}
               onPress={value => props.change_switch(value, '/LIE/L2')}
             />
           </StyledSwitch>
@@ -78,8 +83,9 @@ const ControleLaboratorio = props => {
             <StyledText>Luz 3:</StyledText>
             <SwitchSelector
               backgroundColor="lightgray"
-              options={options}
+              options={light}
               initial={0}
+              value={L3 ? 1 : 0}
               onPress={value => props.change_switch(value, '/LIE/L3')}
             />
           </StyledSwitch>
@@ -87,8 +93,9 @@ const ControleLaboratorio = props => {
             <StyledText>Luz 4:</StyledText>
             <SwitchSelector
               backgroundColor="lightgray"
-              options={options}
+              options={light}
               initial={0}
+              value={L4 ? 1 : 0}
               onPress={value => props.change_switch(value, '/LIE/L4')}
             />
           </StyledSwitch>
@@ -96,7 +103,7 @@ const ControleLaboratorio = props => {
         <StyledSwitchCO>
           <StyledSwitch>
             <StyledText />
-            <StyledText>Todas as luzes:</StyledText>
+            <StyledText>Projetor:</StyledText>
           </StyledSwitch>
 
           <StyledSwitch>
@@ -104,8 +111,9 @@ const ControleLaboratorio = props => {
             <SwitchSelector
               backgroundColor="lightgray"
               options={options}
-              initial={1}
-              onPress={() => {}}
+              initial={0}
+              value={Projetor ? 1 : 0}
+              onPress={value => props.change_switch(value, '/LIE/Projetor')}
             />
           </StyledSwitch>
         </StyledSwitchCO>
