@@ -2,17 +2,30 @@ import React, { useEffect } from 'react'
 import SwitchSelector from 'react-native-switch-selector'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { isLogged, getCurrentUser } from '../actions/AutenticationActions'
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons'
-
-import COLORS from '../assets/colors'
-import { Text } from 'react-native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import COLORS from '../assets/colors'
+
+import { isLogged, getCurrentUser } from '../actions/AutenticationActions'
+import { lab_control, change_switch } from '../actions/AppActions'
 
 const ControleLaboratorio = props => {
+  const { L1, L2, L3, L4 } = props.laboratorio
+
+  const luzes = {
+    l1: L1 ? 1 : 0,
+    l2: L2 ? 1 : 0,
+    l3: L3 ? 1 : 0,
+    l4: L4 ? 1 : 0
+  }
+
+  useEffect(() => {
+    props.lab_control()
+  }, [])
+
   useEffect(() => {
     const unsubscribe = props.navigation.addListener('focus', () => {
-      props.getCurrentUser(true)
+      props.getCurrentUser(false)
     })
     return unsubscribe
   }, [props, props.navigation])
@@ -38,6 +51,7 @@ const ControleLaboratorio = props => {
 
   return (
     <StyledContainer>
+      <StyledTitle>Controle do Laboratório</StyledTitle>
       <StyledContainer>
         <StyledSwitchCO>
           <StyledSwitch>
@@ -45,8 +59,8 @@ const ControleLaboratorio = props => {
             <SwitchSelector
               backgroundColor="lightgray"
               options={options}
-              initial={1}
-              onPress={() => {}}
+              initial={0}
+              onPress={value => props.change_switch(value, '/LIE/L1')}
             />
           </StyledSwitch>
           <StyledSwitch>
@@ -54,8 +68,8 @@ const ControleLaboratorio = props => {
             <SwitchSelector
               backgroundColor="lightgray"
               options={options}
-              initial={1}
-              onPress={() => {}}
+              initial={0}
+              onPress={value => props.change_switch(value, '/LIE/L2')}
             />
           </StyledSwitch>
         </StyledSwitchCO>
@@ -65,8 +79,8 @@ const ControleLaboratorio = props => {
             <SwitchSelector
               backgroundColor="lightgray"
               options={options}
-              initial={1}
-              onPress={() => {}}
+              initial={0}
+              onPress={value => props.change_switch(value, '/LIE/L3')}
             />
           </StyledSwitch>
           <StyledSwitch>
@@ -74,14 +88,19 @@ const ControleLaboratorio = props => {
             <SwitchSelector
               backgroundColor="lightgray"
               options={options}
-              initial={1}
-              onPress={() => {}}
+              initial={0}
+              onPress={value => props.change_switch(value, '/LIE/L4')}
             />
           </StyledSwitch>
         </StyledSwitchCO>
         <StyledSwitchCO>
-          <StyledText>Todas as luzes:</StyledText>
           <StyledSwitch>
+            <StyledText />
+            <StyledText>Todas as luzes:</StyledText>
+          </StyledSwitch>
+
+          <StyledSwitch>
+            <StyledText />
             <SwitchSelector
               backgroundColor="lightgray"
               options={options}
@@ -92,10 +111,17 @@ const ControleLaboratorio = props => {
         </StyledSwitchCO>
       </StyledContainer>
       <StyledContainer />
-      <StyledContainer />
     </StyledContainer>
   )
 }
+
+const StyledTitle = styled.Text`
+  font-size: 22px;
+  color: #f0edf6;
+  padding: 17px;
+  font-family: 'Spartan';
+  text-align: center;
+`
 
 const StyledContainer = styled.View`
   display: flex;
@@ -123,13 +149,16 @@ const StyledSwitch = styled.View`
 
 const mapStateToProps = state => ({
   loggedIn: state.AutenticationReducer.loggedIn,
-  userInfo: state.AutenticationReducer.userInfo
+  userInfo: state.AutenticationReducer.userInfo,
+  laboratorio: state.AppReducer.laboratorio
 })
 
 export default connect(
   mapStateToProps,
   {
     isLogged,
-    getCurrentUser
+    getCurrentUser,
+    lab_control,
+    change_switch
   }
 )(ControleLaboratorio)

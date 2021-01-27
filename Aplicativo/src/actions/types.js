@@ -1,4 +1,4 @@
-export const SWITCH_MODE = 'switch_mode'
+export const LIGHT_SWITCH = 'light_switch'
 export const VALOR_LEITURA = 'valor_leitura'
 export const VALUE_SWITCH = 'value_switch'
 export const VALUE_POTENCIA = 'value_potencia'
