@@ -118,7 +118,18 @@ const ControleLaboratorio = props => {
           </StyledSwitch>
         </StyledSwitchCO>
       </StyledContainer>
-      <StyledContainer />
+      <StyledFooter>
+        <StyledText>Cortina:</StyledText>
+        <StyledButton onPress={() => props.change_switch(1, '/Cortina/Estado')}>
+          <StyledText>Abrir</StyledText>
+        </StyledButton>
+        <StyledButton onPress={() => props.change_switch(3, '/Cortina/Estado')}>
+          <StyledText>Metade</StyledText>
+        </StyledButton>
+        <StyledButton onPress={() => props.change_switch(0, '/Cortina/Estado')}>
+          <StyledText>Fechar</StyledText>
+        </StyledButton>
+      </StyledFooter>
     </StyledContainer>
   )
 }
@@ -129,6 +140,23 @@ const StyledTitle = styled.Text`
   padding: 17px;
   font-family: 'Spartan';
   text-align: center;
+`
+const StyledButton = styled.TouchableHighlight`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #001d46;
+  width: 100%;
+  height: 40px;
+  border-radius: 13px;
+  margin: 10px 0px;
+`
+const StyledFooter = styled.View`
+  padding: 10px 25px 40px 25px;
+  display: flex;
+  flex: 1;
+  background-color: ${COLORS.background};
+  justify-content: space-around;
 `
 
 const StyledContainer = styled.View`
